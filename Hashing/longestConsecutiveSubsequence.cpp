@@ -53,3 +53,50 @@ int findLongestConseqSubseq(int arr[], int N)
 
 Time Complexity: O(N), Only one traversal is needed and the time complexity is O(n) under the assumption that hash insert and search takes O(1) time.
 Space Complexity:  Auxiliary space: O(N), To store every element in the hashmap O(n) space is needed
+
+
+
+Another Appraoch:
+
+class Solution {
+public:
+    int longestConsecutive(vector<int>& nums) {
+        // declaring an unordered_map to store the presence of an element in the
+        // vector nums
+        unordered_map<int,bool> mp;
+        // initialize with the values of the map through iteration
+        for(int i=0;i<nums.size();i++)
+        {
+            mp[nums[i]]=true;
+        }
+        // checking for the every element being the first element or not
+        for(int i=0;i<nums.size();i++)
+        {
+            if(mp.count(nums[i]-1) > 0)
+            // this is checking for the condition that is nums[i] being the first 
+            // element of the nums[i];
+            mp[nums[i]]=false;
+        }
+        // declaring a  variable with the name of the max_len to update the length 
+        // based upon the the count variable
+        int max_len=0;
+        for(int i=0;i<nums.size();i++)
+        {
+            if(mp[nums[i]]==true)
+            {
+                int j=0; int count=0;
+                while(mp.count(nums[i]+j)>0)
+                {
+                    j++;count++;
+                }
+                if(count>max_len)
+                    // updating max_len variable
+                max_len=count;
+            }
+        }
+        // variable max_len is used for the computation of longest comman gateway
+        
+        return max_len;
+    }
+
+};
