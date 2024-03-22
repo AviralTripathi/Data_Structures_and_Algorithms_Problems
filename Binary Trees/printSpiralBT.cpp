@@ -79,3 +79,81 @@ vector<int> findSpiral(Node *root)
 
 Time Complexity: O(N^2) // where N is the number of nodes in the tree
 Space Complexity: O(N) // for recursive stack space and auxillary space O(N) since we have used  a vector
+
+
+
+  2nd Method:
+
+Sure, let's break down the provided code:
+
+Function Purpose:
+
+The function zigzagLevelOrder aims to perform a level order traversal of a binary tree in a zigzag manner. That means it traverses each level of the tree from left to right in alternating directions (left to right for odd levels, right to left for even levels).
+Algorithm:
+
+The function utilizes Breadth First Search (BFS) to traverse the binary tree level by level.
+It maintains a queue q1 to keep track of the nodes at each level.
+At each level:
+It iterates through the nodes in the queue.
+For each node, it adds its value to the current level's vector lvl.
+It also enqueues the left and right child of the current node if they exist.
+After processing all nodes at the current level, it appends the current level's vector lvl to the result vector res.
+Additionally, it reverses the vector lvl if the flagRev is true, indicating that the traversal direction should be reversed.
+The flagRev is toggled after processing each level to ensure zigzag traversal.
+Variable Explanation:
+
+queue<TreeNode*> q1: Queue to store the nodes of the binary tree level by level.
+vector<vector<int>> res: Vector of vectors to store the zigzag level order traversal result.
+bool flagRev: Flag to indicate whether the traversal direction should be reversed for the next level.
+Function Execution:
+
+The function starts by checking if the root node is NULL. If so, it returns an empty result vector res.
+It enqueues the root node into the queue q1.
+It then enters the main loop, which continues until the queue q1 becomes empty.
+Inside the loop, it processes each level of the tree, enqueuing child nodes and adding values to the current level's vector.
+After processing each level, it appends the current level's vector to the result vector res.
+Finally, it returns the result vector res, which contains the zigzag level order traversal of the binary tree.
+
+Code:
+
+class Solution {
+public:
+    vector<vector<int>> zigzagLevelOrder(TreeNode* root) {
+        // Using Breadth First Search (BFS)
+        queue<TreeNode*> q1;
+        vector<vector<int>> res;
+        bool flagRev = false;
+        if (!root)
+            return res;
+
+        q1.push(root);
+
+        while (!q1.empty()) {
+            int size = q1.size();
+            vector<int> lvl;
+
+            while (size--) {
+                TreeNode* curr = q1.front();
+                q1.pop();
+
+                if (curr->left)
+                    q1.push(curr->left);
+                if (curr->right)
+                    q1.push(curr->right);
+
+                lvl.push_back(curr->val);
+            }
+
+            if (flagRev)
+                reverse(begin(lvl), end(lvl));
+            flagRev = !flagRev;
+            res.push_back(lvl);
+        }
+
+        return res;
+    }
+};
+
+
+Time Complexity: O(N)
+Space Complexity: O(N)
