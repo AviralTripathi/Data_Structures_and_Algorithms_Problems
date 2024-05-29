@@ -53,7 +53,7 @@ class Solution {
 };
 
 
-Time Complexity: O(n*mlog(n*m) +n*m*4); the two loops for i and j will run for maximum of n*m in the worst case and the dfs loop will be maximum be running  for
+Time Complexity: O(n*mlog(n*m)) +O(n*m*4); the two loops for i and j will run for maximum of n*m in the worst case and the dfs loop will be maximum be running  for
   n*m in the worst case exploring all the 4 possible directions.
 
 Space Complexity: O(n*m) since both the visited array as well as the set will be occupying the space of the n*m;
