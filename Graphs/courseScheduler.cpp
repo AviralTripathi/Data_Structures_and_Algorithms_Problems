@@ -12,6 +12,8 @@ Create an empty ans vector to store the topological order of the courses.
 
 Iterate over the prerequisites vector, which contains pairs of courses indicating the prerequisites.
 For each pair [a, b], add an edge in the adjacency list from b to a. This indicates that course b must be completed before course a.
+indegree[x[1]]++ increments the indegree of course x[1] by 1, indicating that one more course (specifically x[0]) must be completed before x[1].
+
 Increment the indegree of course a by 1, as it has one more prerequisite.
 Performing Topological Sort using Kahn's Algorithm:
 
@@ -51,8 +53,8 @@ public:
         vector<int> ans;
         for(auto x:prerequisites)
         {
-            adj[x[0]].push_back(x[1]);
-            indegree[x[1]]++;
+            adj[x[1]].push_back(x[0]);
+            indegree[x[0]]++;
         }
         queue<int> q;
         for(int i=0;i<n;i++)
@@ -79,6 +81,8 @@ public:
         return ans.size()==n;
     }
 };
+
+
 
 
 Time Complexity:  \[ O(E) + O(N) + O(N + E) = O(N + E) \]
